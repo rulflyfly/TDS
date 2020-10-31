@@ -2,7 +2,7 @@
 
 #include "TDSGameMode.h"
 #include "TDSPlayerController.h"
-#include "TDSCharacter.h"
+#include "Character/TDSCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 ATDSGameMode::ATDSGameMode()
@@ -11,9 +11,11 @@ ATDSGameMode::ATDSGameMode()
 	PlayerControllerClass = ATDSPlayerController::StaticClass();
 
 	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/TopDownCPP/Blueprints/TopDownCharacter"));
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Bluprint/Character/TopDownCharacter"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 }
+
+
