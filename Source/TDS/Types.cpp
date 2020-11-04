@@ -2,12 +2,6 @@
 
 
 #include "Types.h"
+#include "TDS.h"
 
-Types::Types()
-{
-    UE_LOG(LogTemp, Warning, TEXT("Types here"));
-}
 
-Types::~Types()
-{
-}

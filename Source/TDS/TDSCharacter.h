@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Types.h"
 #include "TDSCharacter.generated.h"
+
 
 UCLASS(Blueprintable)
 class ATDSCharacter : public ACharacter
@@ -39,6 +41,18 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UDecalComponent* CursorToWorld;
 public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    EMovementState MovementState = EMovementState::Run_State;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    FCharacterSpeed MovementSpeedInfo;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    bool SprintRunEnabled = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    bool WalkEnabled = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    bool AimEnabled = false;
+    
     UFUNCTION()
     void InputAxisX(float Value);
     UFUNCTION()
@@ -50,5 +64,10 @@ public:
     // Tick function
     UFUNCTION()
     void MovementTick(float DeltaTime);
+    
+    UFUNCTION(BlueprintCallable)
+    void CharacterUpdate();
+    UFUNCTION(BlueprintCallable)
+    void ChangeMovementState();
 };
 
