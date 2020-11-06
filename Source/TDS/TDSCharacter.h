@@ -19,7 +19,7 @@ public:
 	// Called every frame.
 	virtual void Tick(float DeltaSeconds) override;
     
-    virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+    virtual void SetupPlayerInputComponent(class UInputComponent* NewInputComponent) override;
 
 	/** Returns TopDownCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }

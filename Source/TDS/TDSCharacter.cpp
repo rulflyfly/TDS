@@ -94,11 +94,11 @@ void ATDSCharacter::Tick(float DeltaSeconds)
     MovementTick(DeltaSeconds);
 }
 
-void ATDSCharacter::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+void ATDSCharacter::SetupPlayerInputComponent(class UInputComponent* NewInputComponent)
 {
     Super::SetupPlayerInputComponent(InputComponent);
-    InputComponent->BindAxis(TEXT("MoveForward"), this, &ATDSCharacter::InputAxisX);
-    InputComponent->BindAxis(TEXT("MoveRight"), this, &ATDSCharacter::InputAxisY);
+    NewInputComponent->BindAxis(TEXT("MoveForward"), this, &ATDSCharacter::InputAxisX);
+    NewInputComponent->BindAxis(TEXT("MoveRight"), this, &ATDSCharacter::InputAxisY);
 }
 
 void ATDSCharacter::InputAxisX(float Value)
@@ -116,11 +116,17 @@ void ATDSCharacter::MovementTick(float DeltaTime)
     AddMovementInput(FVector(1.f, 0.f, 0.f), AxisX);
     AddMovementInput(FVector(0.f, 1.f, 0.f), AxisY);
     
-    APlayerController* Controller = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-    if (Controller)
+    if (SprintRunEnabled)
+    {
+        AddMovementInput(GetActorForwardVector(), 1);
+    }
+    
+    
+    APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+    if (PlayerController)
     {
         FHitResult HitResult;
-        Controller->GetHitResultUnderCursorByChannel(ETraceTypeQuery::TraceTypeQuery6, false, HitResult);
+        PlayerController->GetHitResultUnderCursorByChannel(ETraceTypeQuery::TraceTypeQuery6, false, HitResult);
         auto FindRotatorResultYaw = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), HitResult.Location).Yaw;
         SetActorRotation(FQuat(FRotator(0.f, FindRotatorResultYaw, 0.f)));
     }
