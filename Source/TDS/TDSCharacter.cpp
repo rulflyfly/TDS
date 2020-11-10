@@ -13,6 +13,8 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "DrawDebugHelpers.h"
+#include "Math/Vector.h"
 
 ATDSCharacter::ATDSCharacter()
 {
@@ -92,6 +94,8 @@ void ATDSCharacter::Tick(float DeltaSeconds)
 	}
     
     MovementTick(DeltaSeconds);
+    
+
 }
 
 void ATDSCharacter::SetupPlayerInputComponent(class UInputComponent* NewInputComponent)
@@ -116,11 +120,11 @@ void ATDSCharacter::MovementTick(float DeltaTime)
     AddMovementInput(FVector(1.f, 0.f, 0.f), AxisX);
     AddMovementInput(FVector(0.f, 1.f, 0.f), AxisY);
     
-    if (SprintRunEnabled)
-    {
-        AddMovementInput(GetActorForwardVector(), 1);
-    }
-    
+//    if (SprintRunEnabled)
+//    {
+//        AddMovementInput(GetActorForwardVector(), 1);
+//    }
+//
     
     APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
     if (PlayerController)
@@ -131,6 +135,13 @@ void ATDSCharacter::MovementTick(float DeltaTime)
         SetActorRotation(FQuat(FRotator(0.f, FindRotatorResultYaw, 0.f)));
     }
     
+ 
+
+    
+    FVector MovementDirection = GetLastMovementInputVector();
+    FVector LookDirection = GetActorRotation().Vector();
+    SprintAngle = UKismetMathLibrary::DegAcos(FVector::DotProduct(MovementDirection, LookDirection));
+
 }
 
 void ATDSCharacter::CharacterUpdate()

@@ -45,7 +45,8 @@ public:
     EMovementState MovementState = EMovementState::Run_State;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
     FCharacterSpeed MovementSpeedInfo;
-    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    float SprintAngle = 0.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
     bool SprintRunEnabled = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
