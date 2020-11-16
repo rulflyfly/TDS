@@ -171,6 +171,7 @@ void ATDSCharacter::MovementTick(float DeltaTime)
 
 void ATDSCharacter::AttackCharEvent(bool bIsFiring)
 {
+    
     AWeaponDefault* myWeapon = nullptr;
     myWeapon = GetCurrentWeapon();
     if (myWeapon)
@@ -179,7 +180,9 @@ void ATDSCharacter::AttackCharEvent(bool bIsFiring)
         myWeapon->SetWeaponStateFire(bIsFiring);
     }
     else
+    {
         UE_LOG(LogTemp, Warning, TEXT("ATDSCharacter::AttackCharEvent - CurrentWeapon -NULL"));
+    }
 }
 
 void ATDSCharacter::CharacterUpdate()
@@ -298,6 +301,10 @@ void ATDSCharacter::InitWeapon(FName IdWeaponName)
         {
             UE_LOG(LogTemp, Warning, TEXT("ATDSCharacter::InitWeapon - Weapon not found in table -NULL"));
         }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("No Game Instance :("));
     }
 
     

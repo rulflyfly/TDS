@@ -138,7 +138,9 @@ void AWeaponDefault::WeaponInit()
 void AWeaponDefault::SetWeaponStateFire(bool bIsFire)
 {
     if (CheckWeaponCanFire())
+    {
         WeaponFiring = bIsFire;
+    }
     else
     {
         WeaponFiring = false;
@@ -189,7 +191,7 @@ void AWeaponDefault::Fire()
             if (ProjectileInfo.Projectile)
             {
                 //Projectile Init ballistic fire
-
+                UE_LOG(LogTemp, Warning, TEXT("GOT PROJECTILE INFO "));
                 FActorSpawnParameters SpawnParams;
                 SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
                 SpawnParams.Owner = GetOwner();
